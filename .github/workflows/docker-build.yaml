@@ -87,7 +87,9 @@ jobs:
           JAR_NAME: ${{ needs.compile.outputs.jarname }}
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
-
+          ls
+          cd target/
+          ls
           docker build --tag registry.heroku.com/pet-clinic-test123/web -f Dockerfile .
           docker push registry.heroku.com/pet-clinic-test123/web
       - name: Release
