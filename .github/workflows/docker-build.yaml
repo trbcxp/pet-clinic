@@ -70,25 +70,16 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: ${{ env.JAR_NAME }}
-
-      # The dockerfile expects the jar to be under target/
-      - name: Fake target/ dir
-        run: |
-          mkdir target/
-          mv -v ${{ env.JAR_NAME }} target/
-          
       - uses: actions/checkout@v1
       - name: Login to Heroku Container registry
         env: 
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:login 
-      - name: push to heroku
-        env:
-          JAR_NAME: ${{ needs.compile.outputs.jarname }}
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      # The dockerfile expects the jar to be under target/
+      - name: Fake target/ dir
         run: |
-          ls
-          cd target/
+          mkdir target/
+          mv -v ${{ env.JAR_NAME }} target/
           ls
           docker build --tag registry.heroku.com/pet-clinic-test123/web -f Dockerfile .
           docker push registry.heroku.com/pet-clinic-test123/web
