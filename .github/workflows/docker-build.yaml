@@ -87,6 +87,10 @@ jobs:
         JAR_NAME: ${{ needs.compile.outputs.jarname }}
         IMAGE_TAGS: latest ${{ needs.compile.outputs.commit_sha }}
       steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.JAR_NAME }}
+          
       - uses: actions/checkout@v1
       - name: Login to Heroku Container registry
         env: 
@@ -97,6 +101,8 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
+          mkdir target/
+          mv -v ${{ env.JAR_NAME }} target/
           docker build --tag registry.heroku.com/pet-clinic-test123/web -f Dockerfile .
           docker push registry.heroku.com/pet-clinic-test123/web
       - name: Release
