@@ -83,7 +83,6 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:login 
       - name: push to heroku
-        working-directory: .
         env:
           JAR_NAME: ${{ needs.compile.outputs.jarname }}
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
