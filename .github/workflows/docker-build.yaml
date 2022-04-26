@@ -103,8 +103,9 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
-          docker build --tag registry.heroku.com/pet-clinic-test123/web -f Dockerfile .
-          docker push registry.heroku.com/pet-clinic-test123/web
+          # docker build --tag registry.heroku.com/pet-clinic-test123/web -f Dockerfile .
+          echo "image tags ${{ env.IMAGE_TAGS }}"
+          docker push registry.heroku.com/${{ env.IMAGE_TAGS }}/web
       - name: Release
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
