@@ -76,6 +76,25 @@ jobs:
         run: |
           mkdir target/
           mv -v ${{ env.JAR_NAME }} target/
+          
+      - uses: actions/checkout@v1
+      - name: Login to Heroku Container registry
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:login 
+      - name: push to heroku
+        working-directory: .
+        env:
+          JAR_NAME: ${{ needs.compile.outputs.jarname }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+
+          docker build --tag registry.heroku.com/pet-clinic-test123/web -f Dockerfile .
+          docker push registry.heroku.com/pet-clinic-test123/web
+      - name: Release
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:release web --app pet-clinic-test123
 
         
             
