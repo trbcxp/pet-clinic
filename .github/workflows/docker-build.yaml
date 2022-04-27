@@ -85,4 +85,6 @@ jobs:
       - name: Release
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:release pet-clinic --app pet-clinic-test123
+        run: |
+          heroku stack:set container
+          heroku container:release pet-clinic --app pet-clinic-test123
