@@ -11,4 +11,4 @@ COPY target/spring-petclinic*.jar .
 
 ###ENTRYPOINT java -jar spring-petclinic*.jar
 
-CMD java\ -jar spring-petclinic*.jar
+CMD java -jar spring-petclinic*.jar
