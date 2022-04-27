@@ -1,4 +1,4 @@
-name: Docker Build
+name: Docker Build and Release
 on: [ pull_request, push, workflow_dispatch ]
 env:
   APP_NAME: petclinic
@@ -56,7 +56,7 @@ jobs:
   ## The build and push image job builds the container image with the petclinic jar in it,
   ## and pushes it to an image registry.
   ## It outputs the image tag and image URL for the next step to use when deploying to the OpenShift cluster.
-  build-push-image:
+  build-push-release-image:
     name: Docker Build
     runs-on: ubuntu-20.04
     needs: compile
@@ -75,7 +75,7 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:login 
       # The dockerfile expects the jar to be under target/
-      - name: Fake target/ dir
+      - name: Docker build and push
         run: |
           mkdir target/
           mv -v ${{ env.JAR_NAME }} target/
