@@ -80,12 +80,11 @@ jobs:
           mkdir target/
           mv -v ${{ env.JAR_NAME }} target/
           ls
-          docker build --tag registry.heroku.com/pet-clinic-test123/pet-clinic -f Dockerfile .
-          docker push registry.heroku.com/pet-clinic-test123/pet-clinic
+          docker build --tag registry.heroku.com/pet-clinic-test123/web -f Dockerfile .
+          docker push registry.heroku.com/pet-clinic-test123/web
       - name: Release
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
           heroku stack:set container --app pet-clinic-test123
-          heroku container:release pet-clinic --app pet-clinic-test123
-          heroku ps:scale web=1 --app pet-clinic-test123
+          heroku container:release web --app pet-clinic-test123
