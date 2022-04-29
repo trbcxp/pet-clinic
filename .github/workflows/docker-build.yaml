@@ -9,12 +9,6 @@ jobs:
   compile:
     name: Compile
     runs-on: ubuntu-20.04
-    outputs:
-      jarname: ${{ steps.get-jarname.outputs.jarname }}
-      commit_sha: ${{ steps.commit-data.outputs.short_sha }}
-    env:
-      TARGET_DIR: target/
-      MVN_REPO_DIR: ~/.m2/repository
     steps:
     - uses: actions/checkout@v2
 
@@ -27,7 +21,7 @@ jobs:
     - name: Compile, build and push
       run: |
         heroku container:login 
-        mvn -ntp -B package
+        mvn -B package
         ls
         docker build --tag registry.heroku.com/${APP_NAME}/web -f Dockerfile .
         docker push registry.heroku.com/${APP_NAME}/web
