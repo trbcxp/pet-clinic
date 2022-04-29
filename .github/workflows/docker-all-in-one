@@ -1,5 +1,5 @@
 
-name: Docker Build and Release
+name: Compile,Build,Release
 on: [ pull_request, push, workflow_dispatch ]
 env:
   APP_NAME: petclinic
