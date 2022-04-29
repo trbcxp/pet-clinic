@@ -6,7 +6,7 @@ env:
   APP_PORT: 8080
 
 jobs:
-  #####################################################################################################################
+  ####################################################################################################################
   ## The compile job compiles the application into a jar, and uploads it as an artifact for the next job to use.
   compile:
     name: Compile
