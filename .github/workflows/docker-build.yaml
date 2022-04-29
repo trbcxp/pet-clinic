@@ -1,10 +1,8 @@
 name: Docker Build and Release
-on: [ pull_request, push, workflow_dispatch ]
+on: [ push ]
 env:
-  APP_PORT: 8080
   APP_NAME: "pet-clinic-test123"
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-
 jobs:
   compile:
     name: Compile
