@@ -1,5 +1,5 @@
 name: Docker Build and Release
-on: [ pull_request, push, workflow_dispatch ]
+on: [ pull_request ]
 env:
   APP_NAME: petclinic
   APP_PORT: 8080
