@@ -1,8 +1,9 @@
 name: Docker Build and Release
 on: [ pull_request, push, workflow_dispatch ]
 env:
-  APP_NAME: petclinic
   APP_PORT: 8080
+  APP_NAME: "pet-clinic-test123"
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
 jobs:
   compile:
@@ -24,9 +25,6 @@ jobs:
         java-version: 11
         cache: maven
     - name: Compile, build and push
-      env: 
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        APP_NAME: "pet-clinic-test123"
       run: |
         heroku container:login 
         mvn -ntp -B package
@@ -34,9 +32,7 @@ jobs:
         docker build --tag registry.heroku.com/${APP_NAME}/web -f Dockerfile .
         docker push registry.heroku.com/${APP_NAME}/web
     - name: Release
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
         heroku container:login 
         heroku stack:set container --app ${APP_NAME}
-        heroku container:release web --app pet-clinic-test123
+        heroku container:release web --app ${APP_NAME}
