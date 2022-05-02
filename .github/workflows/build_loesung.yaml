@@ -3,7 +3,7 @@ on: [ push ]
 env:
   APP_NAME: "pet-clinic-test123"
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+  #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 jobs:
   compile:
